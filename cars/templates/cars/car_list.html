@@ -5,16 +5,25 @@
 {% block content %}
 <h1 class="mb-4">Cars</h1>
 
-<ul>
+<div class="row row-cols-1 row-cols-md-3 g-4">
 {% for car in cars %}
-    <li>
-        <a href="{% url 'car_detail' car.id %}">
-            {{ car.year }} {{ car.brand.name }} {{ car.model_name }}
-        </a>
-        — ${{ car.price }}
-    </li>
+    <div class="col">
+        <div class="card h-100">
+            {% if car.image_url %}
+                <img src="{{ car.image_url }}" class="card-img-top" alt="{{ car.model_name }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ car.year }} {{ car.brand.name }} {{ car.model_name }}</h5>
+                <p class="card-text text-muted">
+                    {{ car.get_body_type_display }} · {{ car.get_fuel_type_display }} · {{ car.seats }} seats
+                </p>
+                <p class="fs-5 fw-bold">${{ car.price }}</p>
+                <a href="{% url 'car_detail' car.id %}" class="btn btn-primary">View details</a>
+            </div>
+        </div>
+    </div>
 {% empty %}
-    <li>No cars yet.</li>
+    <p>No cars yet.</p>
 {% endfor %}
-</ul>
+</div>
 {% endblock %}
