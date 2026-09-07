@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Compare cars — CarEmpire{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Compare</h1>
+
+{% if cars %}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            {% for car in cars %}
+                <th>{{ car.year }} {{ car.brand.name }} {{ car.model_name }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Price</th>
+            {% for car in cars %}<td>${{ car.price }}</td>{% endfor %}
+        </tr>
+        <tr>
+            <th>Body type</th>
+            {% for car in cars %}<td>{{ car.get_body_type_display }}</td>{% endfor %}
+        </tr>
+        <tr>
+            <th>Fuel</th>
+            {% for car in cars %}<td>{{ car.get_fuel_type_display }}</td>{% endfor %}
+        </tr>
+        <tr>
+            <th>Seats</th>
+            {% for car in cars %}<td>{{ car.seats }}</td>{% endfor %}
+        </tr>
+        <tr>
+            <th>Fuel use</th>
+            {% for car in cars %}<td>{{ car.fuel_consumption }} L/100km</td>{% endfor %}
+        </tr>
+    </tbody>
+</table>
+{% else %}
+<p>No cars selected. <a href="{% url 'car_list' %}">Pick some cars to compare.</a></p>
+{% endif %}
+
+<p><a href="{% url 'car_list' %}">Back to all cars</a></p>
+{% endblock %}
