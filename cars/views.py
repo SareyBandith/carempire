@@ -43,3 +43,11 @@ def car_quiz(request):
         'body_types': Car.BodyType.choices,
         'fuel_types': Car.FuelType.choices,
     })
+def car_list(request):
+    cars = Car.objects.all()
+
+    query = request.GET.get('q')
+    if query:
+        cars = cars.filter(model_name__icontains=query)
+
+    return render(request, 'cars/car_list.html', {'cars': cars, 'query': query})
