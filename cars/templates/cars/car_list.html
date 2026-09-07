@@ -1,4 +1,9 @@
-<h1>Cars</h1>
+{% extends "base.html" %}
+
+{% block title %}All cars — CarEmpire{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Cars</h1>
 
 <ul>
 {% for car in cars %}
@@ -12,3 +17,4 @@
     <li>No cars yet.</li>
 {% endfor %}
 </ul>
+{% endblock %}
