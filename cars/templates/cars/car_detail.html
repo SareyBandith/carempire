@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 <h1>{{ car.year }} {{ car.brand.name }} {{ car.model_name }}</h1>
 
 <p><strong>Price:</strong> ${{ car.price }}</p>
@@ -25,3 +29,4 @@
 </ul>
 
 <p><a href="{% url 'car_list' %}">Back to all cars</a></p>
+{% endblock %}
