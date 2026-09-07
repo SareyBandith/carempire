@@ -1,0 +1,27 @@
+<h1>{{ car.year }} {{ car.brand.name }} {{ car.model_name }}</h1>
+
+<p><strong>Price:</strong> ${{ car.price }}</p>
+<p><strong>Body type:</strong> {{ car.get_body_type_display }}</p>
+<p><strong>Fuel:</strong> {{ car.get_fuel_type_display }}</p>
+<p><strong>Seats:</strong> {{ car.seats }}</p>
+<p><strong>Fuel use:</strong> {{ car.fuel_consumption }} L/100km</p>
+
+<h2>Pros</h2>
+<ul>
+{% for pro in car.pros.all %}
+    <li>{{ pro.text }}</li>
+{% empty %}
+    <li>None listed.</li>
+{% endfor %}
+</ul>
+
+<h2>Cons</h2>
+<ul>
+{% for con in car.cons.all %}
+    <li>{{ con.text }}</li>
+{% empty %}
+    <li>None listed.</li>
+{% endfor %}
+</ul>
+
+<p><a href="{% url 'car_list' %}">Back to all cars</a></p>
