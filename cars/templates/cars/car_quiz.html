@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Find your car — CarEmpire{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Find your car</h1>
+
+<form method="get" class="row g-3 mb-5">
+    <div class="col-md-3">
+        <label class="form-label">Max price</label>
+        <input type="number" name="max_price" class="form-control" placeholder="50000">
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Minimum seats</label>
+        <input type="number" name="seats" class="form-control" placeholder="5">
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Body type</label>
+        <select name="body_type" class="form-select">
+            <option value="">Any</option>
+            {% for value, label in body_types %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Fuel</label>
+        <select name="fuel_type" class="form-select">
+            <option value="">Any</option>
+            {% for value, label in fuel_types %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Show me cars</button>
+    </div>
+</form>
+
+{% if cars is not None %}
+    <h2>Results</h2>
+    <ul>
+    {% for car in cars %}
+        <li>
+            <a href="{% url 'car_detail' car.id %}">{{ car.year }} {{ car.brand.name }} {{ car.model_name }}</a>
+            — ${{ car.price }}
+        </li>
+    {% empty %}
+        <li>Nothing matched. Try loosening your budget or picking "Any".</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
