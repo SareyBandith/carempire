@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}CarEmpire — find your next car{% endblock %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+    <h1 class="display-5">Find the right car</h1>
+    <p class="lead">Compare Australian cars side by side, or take the quiz and let us narrow it down for you.</p>
+    <a href="{% url 'car_quiz' %}" class="btn btn-primary btn-lg">Take the quiz</a>
+    <a href="{% url 'car_list' %}" class="btn btn-outline-secondary btn-lg">Browse all cars</a>
+</div>
+
+<h2 class="mb-3">Featured</h2>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+{% for car in featured %}
+    <div class="col">
+        <div class="card h-100">
+            {% if car.image_url %}<img src="{{ car.image_url }}" class="card-img-top" alt="">{% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ car.year }} {{ car.brand.name }} {{ car.model_name }}</h5>
+                <p class="fw-bold">${{ car.price }}</p>
+                <a href="{% url 'car_detail' car.id %}" class="btn btn-sm btn-primary">View</a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

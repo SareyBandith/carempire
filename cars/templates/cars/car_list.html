@@ -4,10 +4,31 @@
 
 {% block content %}
 <h1 class="mb-4">Cars</h1>
-<form method="get" class="mb-4">
-    <div class="input-group">
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-4">
         <input type="text" name="q" class="form-control" placeholder="Search by model…" value="{{ query|default:'' }}">
-        <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+    <div class="col-md-2">
+        <select name="body_type" class="form-select">
+            <option value="">Any body</option>
+            {% for value, label in body_types %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <select name="fuel_type" class="form-select">
+            <option value="">Any fuel</option>
+            {% for value, label in fuel_types %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <input type="number" name="max_price" class="form-control" placeholder="Max $">
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100" type="submit">Filter</button>
     </div>
 </form>
 <form method="get" action="{% url 'car_compare' %}">

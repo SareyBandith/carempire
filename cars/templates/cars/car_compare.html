@@ -6,6 +6,7 @@
 <h1 class="mb-4">Compare</h1>
 
 {% if cars %}
+<div class="table-responsive">
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -38,6 +39,7 @@
         </tr>
     </tbody>
 </table>
+</div>
 {% else %}
 <p>No cars selected. <a href="{% url 'car_list' %}">Pick some cars to compare.</a></p>
 {% endif %}

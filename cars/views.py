@@ -51,3 +51,33 @@ def car_list(request):
         cars = cars.filter(model_name__icontains=query)
 
     return render(request, 'cars/car_list.html', {'cars': cars, 'query': query})
+
+def car_list(request):
+    cars = Car.objects.all()
+
+    query = request.GET.get('q')
+    if query:
+        cars = cars.filter(model_name__icontains=query)
+
+    body_type = request.GET.get('body_type')
+    if body_type:
+        cars = cars.filter(body_type=body_type)
+
+    fuel_type = request.GET.get('fuel_type')
+    if fuel_type:
+        cars = cars.filter(fuel_type=fuel_type)
+
+    max_price = request.GET.get('max_price')
+    if max_price:
+        cars = cars.filter(price__lte=max_price)
+
+    return render(request, 'cars/car_list.html', {
+        'cars': cars,
+        'query': query,
+        'body_types': Car.BodyType.choices,
+        'fuel_types': Car.FuelType.choices,
+    })
+    
+def home(request):
+    featured = Car.objects.all()[:3]
+    return render(request, 'cars/home.html', {'featured': featured})
